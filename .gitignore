@@ -16,8 +16,8 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
 lib64/
+lib/
 parts/
 sdist/
 var/
@@ -141,3 +141,4 @@ cython_debug/
 
 !/plm_web/.pytest_cache/
 !/plm_web/temp/
+*.temp/

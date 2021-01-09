@@ -7,17 +7,21 @@
 """
 import os
 import time
+
+import allure
 import pytest
 
 from mysuites.webkeys import WebKey
 from ddt.params import datas
 
 
+@allure.feature('电商项目web自动化')
 class Test_Commerce:
     """
     电商项目Web自动化测试类
     """
 
+    @allure.title('打开浏览器')
     def setup_class(self):
         """
         构造函数，创建对象的时候会执行
@@ -39,19 +43,24 @@ class Test_Commerce:
         self.web.click('//a[contains(text(),"登")]')
         time.sleep(1)
 
+    @allure.story('登录')
     @pytest.mark.parametrize('list_cases', datas['loginPage'])
     def test_login_plus(self, list_cases):
         """
         数据驱动方式
-        登录成功的用例
+        执行登录
         :return: None
         """
+
+        allure.dynamic.title(list_cases['title'])
+        allure.description(list_cases['description'])
         login_case = list_cases['cases']
         for cases in login_case:
             list_case = list(cases.values())
-            function = getattr(self.web, list_case[0])
-            values = list_case[0:]
-            function(*values)
+            with allure.step(list_case[0]):
+                function = getattr(self.web, list_case[1])
+                values = list_case[2:]
+                function(*values)
 
     @pytest.mark.skip(reason="后面的更精彩")
     def test_user_info(self):

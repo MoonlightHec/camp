@@ -9,7 +9,9 @@ import os
 
 import pytest
 
-pytest.main(['-s', '../ddt/commerce_test.py', '--alluredir', './temp'])
+
+# pytest.main(['-s', './ddt/commerce_test.py', '--alluredir', './temp'])
+pytest.main(['-s', './mysuites/test_example4.py', '--alluredir', './temp'])
 # 用例失败时重新跑2次
-# pytest.main(['-s', '../ddt/commerce_test.py', '--reruns', '2'])
+# pytest.main(['-s', './ddt/commerce_test.py', '--reruns', '2'])
 os.system('allure generate ./temp -o ./report --clean')

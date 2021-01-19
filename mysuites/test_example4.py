@@ -46,7 +46,7 @@ class Test_Comm:
         self.web.click('//*[@id="preview"]')
         self.web.into_iframe('//*[@id="layui-layer-iframe1"]')
         abspath = os.getcwd()
-        filepath = os.path.join(abspath, "../mysuites/26.png")
+        filepath = os.path.join(abspath, "./mysuites/26.png")
         self.web.input('//div[@id="filePicker"]/div[2]/input', filepath)
         time.sleep(1)
         self.web.click('//div[text()="确定使用"]')

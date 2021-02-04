@@ -1,3 +1,4 @@
+# _*_ coding: utf-8 _*_
 allure-pytest==2.8.24
 allure-python-commons==2.8.24
 atomicwrites==1.4.0
@@ -14,9 +15,7 @@ pluggy==0.13.1
 py==1.9.0
 pyparsing==2.4.7
 pytest==6.1.2
-# 用例失败重试
 pytest-rerunfailures==9.1.1
-# 多进程运行cases
 # pytest-xdist
 requests==2.23.0
 selenium==3.141.0
@@ -25,3 +24,5 @@ toml==0.10.2
 urllib3==1.25.9
 
 PyYAML~=5.3.1
+PyMySQL~=1.0.2
+switch~=1.1.0

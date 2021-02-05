@@ -6,12 +6,15 @@
 # @desc :
 """
 import json
-import logging
 
 import requests
 
 
 def delete_or_select():
+    """
+    es灰名单地址数据增删查
+    :return:
+    """
     url_par = ('_new', '')
     url_type = 'GET'
     blacklist_id = '1000112438'

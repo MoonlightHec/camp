@@ -9,13 +9,13 @@ from collections import OrderedDict
 import yaml
 
 
-def ordered_yaml_load(yaml_path, Loader=yaml.Loader,
+def ordered_yaml_load(yaml_path, _loader=yaml.Loader,
                       object_pairs_hook=OrderedDict):
     """
     按顺序读取yaml文件
     """
 
-    class OrderedLoader(Loader):
+    class OrderedLoader(_loader):
         pass
 
     def construct_mapping(loader, node):
@@ -29,8 +29,8 @@ def ordered_yaml_load(yaml_path, Loader=yaml.Loader,
         return yaml.load(stream, OrderedLoader)
 
 
-def ordered_yaml_dump(data, stream=None, Dumper=yaml.SafeDumper, **kwds):
-    class OrderedDumper(Dumper):
+def ordered_yaml_dump(data, stream=None, _dumper=yaml.SafeDumper, **kwds):
+    class OrderedDumper(_dumper):
         """
         按顺序生成aml文件
         """

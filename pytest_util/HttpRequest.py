@@ -44,6 +44,7 @@ class HttpRequest:
             print("请求参数格式不支持")
         try:
             """
+            处理接口返回数据
             返回格式为json
             sort_keys=False：按字母排序
             indent=4:格式化缩进

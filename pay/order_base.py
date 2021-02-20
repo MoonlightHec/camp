@@ -3,12 +3,13 @@
 # @Time : 2021/1/26 16:59 
 # @Author : River 
 # @File : order_base.py
-# @desc :
+# @desc : 查询订单信息
 """
 
 # 链接数据库
-from pay.db_es import cursor
+from db_config import db
 
+cursor = db.get_cursor('PPS')
 # 查询订单信息(order_sn,paySn)
 data = ('U2102020440531376', '')
 sql_par = {}

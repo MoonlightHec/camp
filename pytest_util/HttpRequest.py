@@ -37,9 +37,9 @@ class HttpRequest:
         """
         headers_type = headers.get("Content-Type")
         if headers_type == "application/json":
-            response = requests.post(url, headers=headers, cookies=cookies, json=body)
+            response = requests.post(url, headers=headers, cookies=cookies, json=body).json()
         elif headers_type == "application/x-www-form-urlencoded":
-            response = requests.post(url, headers=headers, cookies=cookies, data=body)
+            response = requests.post(url, headers=headers, cookies=cookies, data=body).json()
         else:
             print("请求参数格式不支持")
         try:
@@ -51,8 +51,8 @@ class HttpRequest:
             separators = (',', ':') ','逗号左右空格，':'冒号左右空格
             ensure_ascii：unicode转中文
             """
-            preview = json.dumps(response.json(), sort_keys=False, indent=4, separators=(',', ':'), ensure_ascii=False)
-            output = {'request': url, 'response': response.json(), 'preview': preview}
+            preview = json.dumps(response, sort_keys=False, indent=4, separators=(',', ':'), ensure_ascii=False)
+            output = {'request': url, 'response': response, 'preview': preview}
             return output
         except JSONDecodeError:
             return {'request': url, 'response': response}

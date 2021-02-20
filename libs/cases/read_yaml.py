@@ -9,13 +9,16 @@ import pytest_util.sort_yaml as oy
 
 from mysuites.webkeys import WebKey
 
-datas1 = None
-
+# 读取yaml文件
 datas = oy.ordered_yaml_load('./cases.yaml')
 web_key = WebKey()
 
-list_cases = datas['loginPage']
+# 将数据写为yaml文件
+with open('./t1.yaml', 'w',encoding='utf8') as stream:
+    print(datas)
+    oy.ordered_yaml_dump(datas,stream,allow_unicode=True)
 
+list_cases = datas['loginPage']
 login_case = list_cases[0]['cases']
 for cases in login_case:
     list_case = list(cases.values())

@@ -1,9 +1,10 @@
-# -*- coding: utf-8 -*- 
-# @Time : 2021/1/8 23:23 
-# @Author : River 
+# _*_ coding: utf-8 _*_
+"""
+# @Time : 2021/1/8 23:23
+# @Author : River
 # @File : sort_yaml.py
 # @desc :
-# -* encoding:utf-8 -*-
+"""
 from collections import OrderedDict
 
 import yaml

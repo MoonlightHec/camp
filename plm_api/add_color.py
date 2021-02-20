@@ -18,46 +18,51 @@ def color_change_select():
     sku = "206124206"
     headers = {
         "Content-Type": "application/json",
-        "PLM-TOKEN": "5B1FE700627F43C698D44CE73422D4C6"}
+        "PLM-TOKEN": "400D348A573745A39DBE6C73AA56E040"}
 
     # 查询sku信息
     url_select = 'http://plm.hqygou.com:8088/reproofing/product/one/add'
     data_select = {"sku": sku}
     output_select = HttpRequest.post(url=url_select, headers=headers, body=data_select)
-    color = output_select.get('response')['data']['color']
-    product_img = output_select.get('response')['data']['productImg']
-    size_id = output_select.get('response')['data']['sizeId']
-    size = output_select.get('response')['data']['size']
+    if output_select.get('response')['code'] == 900000005:
+        print(output_select.get('response'))
+    elif output_select.get('response')['code'] == 0:
+        color = output_select.get('response')['data']['color']
+        product_img = output_select.get('response')['data']['productImg']
+        size_id = output_select.get('response')['data']['sizeId']
+        size = output_select.get('response')['data']['size']
 
-    # 添加加色款
-    url_add = 'http://plm.hqygou.com:8088/sample/develop/color/change/add'
-    data_add = {
-        "inVoList": [
-            {"id": "",
-             "bizCode": 1,
-             "color": color,
-             "colorId": 81180,
-             "goodsSn": sku,
-             "productCode": sku[0:-2],
-             "productImg": product_img,
-             "productLabel": "4",
-             "recommendFrom": 1,
-             "errorMsg": "",
-             "sizeId": size_id,
-             "size": size,
-             "sku": sku,
-             "purchasePrice": "",
-             "reproofingRemark": "",
-             "reproofingLabel": "",
-             "reproofingSn": "",
-             "dataFrom": "",
-             "purchaseUser": "",
-             "purchaseUserName": "",
-             "purchaseName": "",
-             "remark": ""}]}
-    output = HttpRequest.post(url=url_add, headers=headers, body=data_add)
-    print("添加加色request:%s\nbody：\n%s\nresponse:\n%s" % (
-        output.get('request'), json.dumps(data_add, indent=4, ensure_ascii=False), output.get('preview')))
+        # 添加加色款
+        url_add = 'http://plm.hqygou.com:8088/sample/develop/color/change/add'
+        data_add = {
+            "inVoList": [
+                {"id": "",
+                 "bizCode": 1,
+                 "color": color,
+                 "colorId": 81180,
+                 "goodsSn": sku,
+                 "productCode": sku[0:-2],
+                 "productImg": product_img,
+                 "productLabel": "4",
+                 "recommendFrom": 1,
+                 "errorMsg": "",
+                 "sizeId": size_id,
+                 "size": size,
+                 "sku": sku,
+                 "purchasePrice": "",
+                 "reproofingRemark": "",
+                 "reproofingLabel": "",
+                 "reproofingSn": "",
+                 "dataFrom": "",
+                 "purchaseUser": "",
+                 "purchaseUserName": "",
+                 "purchaseName": "",
+                 "remark": ""}]}
+        output = HttpRequest.post(url=url_add, headers=headers, body=data_add)
+        print("添加加色request:%s\nbody：\n%s\nresponse:\n%s" % (
+            output.get('request'), json.dumps(data_add, indent=4, ensure_ascii=False), output.get('preview')))
+    else:
+        print("未知错误 TODO")
 
 
 def pdm_receive_edit():
@@ -106,4 +111,4 @@ def pdm_receive_edit():
     print("编辑确认request:%s\nresponse:\n%s" % (output_edit.get('request'), output_edit.get('preview')))
 
 
-pdm_receive_edit()
+color_change_select()

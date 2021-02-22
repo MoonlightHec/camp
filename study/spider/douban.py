@@ -42,5 +42,6 @@ def main():
         for each in get_ol_list(url):
             print(get_movie(each))
 
+
 if __name__ == '__main__':
     main()

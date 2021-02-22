@@ -9,19 +9,30 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def get_ol_list(url):
+def get_soup(url):
+    """
+    获取整个页面
+    :param url:
+    :return:
+    """
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36',
         'Host': 'movie.douban.com'}
     r = requests.get(url=url, headers=headers)
     soup = BeautifulSoup(r.text, 'lxml')
-    return soup.find_all('div', class_='info')
+    return soup
 
 
 def get_movie(movie_info):
-    title_list = movie_info.find_all('span', class_='title')
+    movie = {'title': '', 'detail_info': '', 'imageUrl': '', 'playable': ''}
+
+    # 获取排名
+    for sort_tag in movie_info:
+        sort = sort_tag.find('em')
+        movie['title'] = sort.text.strip()
+
     playable = movie_info.find('span', class_='playable')
-    movie = {'片名': '', '英文名': '', '播放源': ''}
+
     for i, hd in enumerate(title_list):
         title = hd.text.strip()
         name = title.replace('\xa0', '').replace('/', '')
@@ -39,8 +50,10 @@ def get_movie(movie_info):
 def main():
     for offset in range(0, 50, 25):
         url = 'https://movie.douban.com/top250?start=' + str(offset)
-        for each in get_ol_list(url):
+        pic_list = get_soup(url).find_all('div', 'pic')
+        for each in pic_list:
             print(get_movie(each))
+
 
 if __name__ == '__main__':
     main()

@@ -6,6 +6,7 @@
 # @desc : 造待加色数据
 """
 import json
+import time
 
 from pytest_util.HttpRequest import HttpRequest
 
@@ -18,7 +19,7 @@ def color_change_select():
     sku = "206124206"
     headers = {
         "Content-Type": "application/json",
-        "PLM-TOKEN": "400D348A573745A39DBE6C73AA56E040"}
+        "PLM-TOKEN": "546857BED16F46E7A8DBA71FF261345E"}
 
     # 查询sku信息
     url_select = 'http://plm.hqygou.com:8088/reproofing/product/one/add'
@@ -28,6 +29,9 @@ def color_change_select():
         print(output_select.get('response'))
     elif output_select.get('response')['code'] == 0:
         color = output_select.get('response')['data']['color']
+        color_id = output_select.get('response')['data']['colorId']
+        goodsSn = output_select.get('response')['data']['sku']
+        productCode = output_select.get('response')['data']['productCode']
         product_img = output_select.get('response')['data']['productImg']
         size_id = output_select.get('response')['data']['sizeId']
         size = output_select.get('response')['data']['size']
@@ -39,16 +43,16 @@ def color_change_select():
                 {"id": "",
                  "bizCode": 1,
                  "color": color,
-                 "colorId": 81180,
-                 "goodsSn": sku,
-                 "productCode": sku[0:-2],
+                 "colorId": color_id,
+                 "goodsSn": goodsSn,
+                 "productCode": productCode,
                  "productImg": product_img,
                  "productLabel": "4",
                  "recommendFrom": 1,
                  "errorMsg": "",
                  "sizeId": size_id,
                  "size": size,
-                 "sku": sku,
+                 "sku": goodsSn,
                  "purchasePrice": "",
                  "reproofingRemark": "",
                  "reproofingLabel": "",
@@ -70,18 +74,19 @@ def pdm_receive_edit():
     pdm收样，编辑确认
     :return:
     """
-    sample_goods_sn = 'Y2113003237'
-    PHPSESSID = '6v39f8p0hrmj5kdh51a9bo0b34'
+    sample_goods_sn = 'Y2113003195'
+    PHPSESSID = 'gdidd5berd6kb4r284aqlbmf60'
     purchase_id = None
 
     url_purchase = 'http://pdm.hqygou.com/sample/sample-develop/index?act=getReceiveEditList'
     url_receive = 'http://pdm.hqygou.com/sample/sample-develop/index?act=editReceiveSample'
     url_edit = 'http://pdm.hqygou.com/sample/sample-develop/index?act=editResure'
     cookie = {
-        "_ga": "GA1.2.1161475107.1602492055",
-        "Hm_lvt_90859506e7af61dd6690c7a11180810b": "1602492056",
-        "Hm_lvt_f1d9b7402cd80f0b26458d932e1698be": "1608021211,1610417660",
-        "PHPSESSID": PHPSESSID}
+        # "_ga": "GA1.2.1161475107.1602492055",
+        # "Hm_lvt_90859506e7af61dd6690c7a11180810b": "1602492056",
+        # "Hm_lvt_f1d9b7402cd80f0b26458d932e1698be": "1608021211,1610417660",
+        "PHPSESSID": PHPSESSID
+    }
     headers = {"Content-Type": "application/x-www-form-urlencoded"}
 
     # 获取purchase_id
@@ -99,6 +104,7 @@ def pdm_receive_edit():
     print("编辑收样request:%s\nresponse:\n%s\n" % (output_receive.get('request'), output_receive.get('preview')))
 
     # 编辑确认
+    time.sleep(2)
     data_edit = {
         'edit_reject_reason': '',
         'remark': '',
@@ -111,4 +117,6 @@ def pdm_receive_edit():
     print("编辑确认request:%s\nresponse:\n%s" % (output_edit.get('request'), output_edit.get('preview')))
 
 
-color_change_select()
+if __name__ == '__main__':
+    # color_change_select()
+    pdm_receive_edit()

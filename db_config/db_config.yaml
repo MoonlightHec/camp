@@ -46,3 +46,11 @@ PDM :
     passwd : ronly2016@TEST
     db : pdm_1014
     charset : utf8
+
+OBS :
+    host : 10.40.6.26
+    port : 3306
+    user : gb_m_user
+    passwd : fEtWqVMzBC
+    db : obs_pay_base
+    charset : utf8

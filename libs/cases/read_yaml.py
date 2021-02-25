@@ -14,7 +14,7 @@ datas = oy.ordered_yaml_load('./cases.yaml')
 web_key = WebKey()
 
 # 将数据写为yaml文件
-with open('./t1.yaml', 'w', encoding='utf8') as stream:
+with open('./t2.yaml', 'w', encoding='utf8') as stream:
     print(datas)
     oy.ordered_yaml_dump(datas, stream, allow_unicode=True)
 
